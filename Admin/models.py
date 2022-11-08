@@ -8,12 +8,12 @@ class BaseUser(AbstractBaseUser):
         ('female', 'female'),
         ('not specified', 'not specified'),
     )
-    gender = models.CharField(choices=GENDER_CHOICES)
+    gender = models.CharField(choices=GENDER_CHOICES,max_length=100)
     age = models.IntegerField()
     mobile = models.CharField(max_length=12)
     address = models.TextField()
     CHOICE = ('Admin', 'Admin'), ('Customer', 'Customer'), ('Theater', 'Theater')
-    usertype = models.CharField(choices=CHOICE)
+    usertype = models.CharField(choices=CHOICE,max_length=50)
 
 class Theater(models.Model):
     theater_name = models.CharField(max_length=120)
@@ -26,13 +26,13 @@ class Theater(models.Model):
         ("active","active"),
         ("inactive","inactive")
     )
-    theater_status=models.CharField(option=Theater_status_choice)
+    theater_status=models.CharField(choices=Theater_status_choice,max_length=50)
 
     def __str__(self):
         return self.theater_name
 
 class Screen(models.Model):
-    screen_name=models.CharField(unique=True)
+    screen_name=models.CharField(unique=True,max_length=100)
     Theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     entry_fee = models.IntegerField()
 

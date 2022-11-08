@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "Customer",
     "Theater",
     "rest_framework",
+    "Admin",
 ]
 # AUTH_USER_MODEL = 'user_auth.Admin.BaseUser'
 
