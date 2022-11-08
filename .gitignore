@@ -1,0 +1,7 @@
+/media/
+/static/
+/temp/
+__pycache__/
+/Theatre_Booking
+*.sqlite3
+.idea
