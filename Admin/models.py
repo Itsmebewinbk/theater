@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractBaseUser
 
 class BaseUser(AbstractBaseUser):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
     GENDER_CHOICES = (
         ('male', 'male'),
         ('female', 'female'),
@@ -15,29 +16,26 @@ class BaseUser(AbstractBaseUser):
     usertype = models.CharField(choices=CHOICE)
 
 class Theater(models.Model):
-    CITY_CHOICE = (
-        ('Kochi', 'Kochi'),
-        ('Thrissur', 'Thrissur'),
-        ('Trivandram', 'Trivandram'),
-        ('Chennai', 'Chennai'),
-        ('Bangalore', 'Bangalore'),
-        ('Ahmedabad', 'Ahmedabad'),
-    )
-    city = models.CharField(max_length=9, choices=CITY_CHOICE, null=False)
     theater_name = models.CharField(max_length=120)
-    owner_name = models.OneToOneField(User, on_delete=models.CASCADE)  # one to one relation
+    city = models.CharField(max_length=50)
+    owner_name = models.OneToOneField(BaseUser, on_delete=models.CASCADE)  # one to one relation
     image = models.ImageField(max_length=120, null=True)
     email_id = models.EmailField()
     phone_number = models.CharField(max_length=12)
+    Theater_status_choice=(
+        ("active","active"),
+        ("inactive","inactive")
+    )
+    theater_status=models.CharField(option=Theater_status_choice)
 
     def __str__(self):
         return self.theater_name
 
 class Screen(models.Model):
-    screen_name = models.ForeignKey(Theater, on_delete=models.CASCADE)
-    movie = models.CharField(max_length=120, unique=True)
+    screen_name=models.CharField(unique=True)
+    Theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     entry_fee = models.IntegerField()
-    date = models.DateField(auto_now_add=True)
+
     options = (
         ("empty", "empty"),
         ("filling", "filling"),
@@ -46,40 +44,40 @@ class Screen(models.Model):
     )
     screen_status = models.CharField(choices=options, max_length=120, default="empty")
     total_seats = models.IntegerField()
-    available_seats = models.IntegerField()
-
-    def booked_seats(self):
-        booked_seats = self.total_seats - self.available_seats
-        return booked_seats
 
     def __str__(self):
         return self.screen_name
 
 class Movie(models.Model):  # singular
     poster = models.ImageField()
+    movie_name=models.CharField(max_length=100)
     screen = models.ForeignKey(Screen, on_delete=models.CASCADE)
-    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
-    start_time=models.DateTimeField(auto_now_add=True)
-    end_time=models.DateTimeField()
+    showtime=(
+        ("Morning","Morning"),
+        ("Noon","Noon"),
+        ("1st","1st"),
+        ("2nd","2nd")
+    )
+    play_time=models.CharField(choices=showtime,max_length=120)
+    start_date = models.DateField()
+    end_date=models.DateField()
 
     def __str__(self):
-        return str(self.poster) + "-" + str(self.screen) + "-" + str(self.theater)
+        return str(self.poster) + "-" + str(self.screen)
 
 class Show(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    theatre = models.ForeignKey(Theater, on_delete=models.CASCADE)
-    screen = models.ForeignKey(Screen,on_delete=models.CASCADE)
     date = models.DateField()
-    time = models.TimeField()
+    play_time=models.DateTimeField(auto_now_add=True)
+    TotalBooking=models.PositiveIntegerField()
 
     def __str__(self):
-        return str(self.movie) + "-" + str(self.theatre) + "-" + str(self.date) + "-" + str(self.time)
+        return str(self.movie) + "-"  + str(self.date)
 
 
 class BookingRequest(models.Model):
     customer = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
-    screen_name = models.ForeignKey(Screen, on_delete=models.CASCADE)
-    movie_name = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    show=models.ForeignKey
+    show=models.ForeignKey(Show,on_delete=models.CASCADE)
     play_date_time = models.DateTimeField(auto_now_add=True)
-    available_seats = models.ForeignKey(Screen, on_delete=models.CASCADE)
+
+    # available_seats = models.ForeignKey(Screen, on_delete=models.CASCADE)
