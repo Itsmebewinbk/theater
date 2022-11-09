@@ -1,83 +1,60 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractBaseUser
+from django.contrib.auth.models import User, AbstractBaseUser,PermissionsMixin
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import UserManager
 
-class BaseUser(AbstractBaseUser):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
-    GENDER_CHOICES = (
+GENDER_CHOICES = (
         ('male', 'male'),
         ('female', 'female'),
         ('not specified', 'not specified'),
     )
-    gender = models.CharField(choices=GENDER_CHOICES,max_length=100)
-    age = models.IntegerField()
-    mobile = models.CharField(max_length=12)
-    address = models.TextField()
-    CHOICE = ('Admin', 'Admin'), ('Customer', 'Customer'), ('Theater', 'Theater')
-    usertype = models.CharField(choices=CHOICE,max_length=50)
-
-class Theater(models.Model):
-    theater_name = models.CharField(max_length=120)
-    city = models.CharField(max_length=50)
-    owner_name = models.OneToOneField(BaseUser, on_delete=models.CASCADE)  # one to one relation
-    image = models.ImageField(max_length=120, null=True)
-    email_id = models.EmailField()
-    phone_number = models.CharField(max_length=12)
-    Theater_status_choice=(
-        ("active","active"),
-        ("inactive","inactive")
-    )
-    theater_status=models.CharField(choices=Theater_status_choice,max_length=50)
-
-    def __str__(self):
-        return self.theater_name
-
-class Screen(models.Model):
-    screen_name=models.CharField(unique=True,max_length=100)
-    Theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
-    entry_fee = models.IntegerField()
-
-    options = (
-        ("empty", "empty"),
-        ("filling", "filling"),
-        ("Housefull", "Housefull"),
-        ("cancelled", "cancelled")
-    )
-    screen_status = models.CharField(choices=options, max_length=120, default="empty")
-    total_seats = models.IntegerField()
-
-    def __str__(self):
-        return self.screen_name
-
-class Movie(models.Model):  # singular
-    poster = models.ImageField()
-    movie_name=models.CharField(max_length=100)
-    screen = models.ForeignKey(Screen, on_delete=models.CASCADE)
-    showtime=(
-        ("Morning","Morning"),
-        ("Noon","Noon"),
-        ("1st","1st"),
-        ("2nd","2nd")
-    )
-    play_time=models.CharField(choices=showtime,max_length=120)
-    start_date = models.DateField()
-    end_date=models.DateField()
-
-    def __str__(self):
-        return str(self.poster) + "-" + str(self.screen)
-
-class Show(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    date = models.DateField()
-    play_time=models.DateTimeField(auto_now_add=True)
-    TotalBooking=models.PositiveIntegerField()
-
-    def __str__(self):
-        return str(self.movie) + "-"  + str(self.date)
+USER_TYPE = (
+    ('admin', 'Admin'),
+    ('customer', 'Customer'),
+    ('theater', 'Theater')
+)
 
 
-class BookingRequest(models.Model):
-    customer = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
-    show=models.ForeignKey(Show,on_delete=models.CASCADE)
-    play_date_time = models.DateTimeField(auto_now_add=True)
+class Manager(UserManager):
 
-    # available_seats = models.ForeignKey(Screen, on_delete=models.CASCADE)
+    def create_superuser(self, username, email, password, **extra_fields):
+        extra_fields['is_superuser'] = True
+        super(Manager, self).create_superuser(username, email, password,**extra_fields)
+
+
+class User(AbstractUser):
+    image=models.ImageField(upload_to="image",null=True,blank=True)
+    mobile=models.CharField(max_length=12,null=True,blank=True)
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=100,default='not specified')
+    name = models.CharField(max_length=200,null=True,blank=True)
+    age = models.IntegerField(null=True,blank=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
+    usertype = models.CharField(choices=USER_TYPE, max_length=50,default="admin")
+
+    def _str_(self):
+        return self.name
+
+    objects = Manager()
+# class BaseUser(AbstractBaseUser,PermissionsMixin):
+#     first_name=models.CharField(max_length=25)
+#     last_name=models.CharField(max_length=25)
+#     email = models.EmailField( unique=True,verbose_name="email")
+#     GENDER_CHOICES = (
+#         ('male', 'male'),
+#         ('female', 'female'),
+#         ('not specified', 'not specified'),
+#     )
+#     is_customer = models.BooleanField('Is Customer',default=False)
+#     is_theatre = models.BooleanField('Is Theatre',default=False)
+#     is_superuser = models.BooleanField(default=False)
+#     is_active = models.BooleanField(default=True)
+#     gender = models.CharField(choices=GENDER_CHOICES,max_length=100)
+#     age = models.IntegerField()
+#     mobile = models.CharField(max_length=12)
+#     address = models.TextField()
+#     CHOICE = ('Admin', 'Admin'), ('Customer', 'Customer'), ('Theater', 'Theater')
+#     usertype = models.CharField(choices=CHOICE,max_length=50)
+#     USERNAME_FIELD="email"
+#     REQUIRED_FIELDS = []
+
