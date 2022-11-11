@@ -2,7 +2,7 @@ from django.contrib import admin
 from Theater.models import *
 
 class TheaterAdmin(admin.ModelAdmin):
-  list_display = ("theater_name","city","owner_name","email_id",)
+  list_display = ("theater_name","city","owner","email_id","approval","image")
 admin.site.register(Theater, TheaterAdmin)
 
 class ScreenAdmin(admin.ModelAdmin):

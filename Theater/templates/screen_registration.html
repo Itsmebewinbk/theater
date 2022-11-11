@@ -23,9 +23,9 @@
         <div class="col-4">
             <h1 class="text-center">Theatre Booking App</h1>
             <form action="" class="border border-2 border-success p-5 mt-5 rounded" method="post" enctype="multipart/form-data">
-                <h2 class="mb-3">Add Theatre</h2>
+                <h2 class="mb-3">Add Screen</h2>
                 {%csrf_token%}
-                {{form.as_p}}
+                {{form.as_ul}}
                 <button class="btn btn-outline-success" type="submit">Add</button>
             </form>
         </div>

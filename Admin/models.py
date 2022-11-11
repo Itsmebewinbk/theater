@@ -17,13 +17,11 @@ USER_TYPE = (
 
 
 class Manager(UserManager):
-
     def create_superuser(self, username, email, password, **extra_fields):
         extra_fields['is_superuser'] = True
         super(Manager, self).create_superuser(username, email, password,**extra_fields)
-
-
-class User(AbstractUser):
+        
+class CustomUser(AbstractUser):
     image=models.ImageField(upload_to="image",null=True,blank=True)
     mobile=models.CharField(max_length=12,null=True,blank=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=100,default='not specified')
@@ -31,7 +29,6 @@ class User(AbstractUser):
     age = models.IntegerField(null=True,blank=True)
     address = models.CharField(max_length=200, blank=True, null=True)
     usertype = models.CharField(choices=USER_TYPE, max_length=50,default="admin")
-
     def _str_(self):
         return self.name
 

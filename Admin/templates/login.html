@@ -16,24 +16,6 @@
 </head>
 
 <body>
-<div class="col-4">
-    {%if messages%}
-    {%for m in messages%}
-    {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{m}}</strong> You should check in on some of those fields below.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {%endif%}
-    {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{m}}</strong> You should check in on some of those fields below.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {%endif%}
-    {%endfor%}
-    {%endif%}
-</div>
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -56,12 +38,14 @@
 
                             </div>
                         </div>
-
                         <div>
-                            <p class="mb-0">Don't have an account? <a href="{%url 'register' %}"
-                                                                      class="text-white-50 fw-bold">Sign
+                            <p class="mb-0"><a href="{%url 'user_register' %}"
+                                                                      class="text-white-50 fw-bold">User Sign
                                 Up</a>
                             </p>
+                        </div>
+                        <div>
+
                         </div>
 
                     </div>
