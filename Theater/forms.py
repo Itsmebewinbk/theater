@@ -20,11 +20,11 @@ class ScreenRegistrationForm(forms.ModelForm):
     class Meta:
         model = Screen
         fields = "__all__"
-        exclude = ("Theater",)
+        exclude = ("theater",)
 
 
 class ScreenEditForm(forms.ModelForm):
     class Meta:
         model = Screen
-        exclude = ("Theater",)
+        exclude = ("theater",)
         fields = "__all__"

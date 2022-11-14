@@ -21,7 +21,7 @@ SHOWTIME = (
 class Theater(models.Model):
     theater_name = models.CharField(max_length=120,unique=True)
     city = models.CharField(max_length=50,null=True)
-    owner = models.OneToOneField(CustomUser, on_delete=models.CASCADE,null=True,blank=True)# one to one relation
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)# one to one relation
     image = models.ImageField(upload_to="images/",null=True)
     email_id = models.EmailField(verbose_name='email_address',max_length=255,unique=True)
     phone_number = models.CharField(max_length=12,null=True)
@@ -32,13 +32,12 @@ class Theater(models.Model):
         return self.theater_name
 class Screen(models.Model):
     screen_name=models.CharField(unique=True,max_length=100)
-    Theater = models.ForeignKey(Theater, on_delete=models.CASCADE,)
-    entry_fee = models.IntegerField()
-    screen_status = models.CharField(choices=SCREEN_STATUS, max_length=120, default="empty")
-    total_seats = models.IntegerField()
-
+    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
+    entry_fee = models.IntegerField(default=100)
+    total_seats = models.IntegerField(default=50)
     def __str__(self):
         return self.screen_name
+
 
 class Movie(models.Model):  # singular
     poster = models.ImageField(upload_to="images/",null=True)
@@ -53,6 +52,7 @@ class Movie(models.Model):  # singular
 
 class Show(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    screen_status = models.CharField(choices=SCREEN_STATUS, max_length=120, default="empty")
     date = models.DateField()
     play_time=models.DateTimeField(auto_now_add=True)
     TotalBooking=models.PositiveIntegerField()

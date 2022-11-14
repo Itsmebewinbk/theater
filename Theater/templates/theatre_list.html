@@ -36,33 +36,33 @@
                         <th>Contacts</th>
                         <th>Action</th>
                     </tr>
+                    {%for t in theatre%}
                     <tr>
                         <td><img class="card-img-top" src="{{theatre.image.url}}" alt="" height="60"></td>
-                        <td>{{theatre.theater_name}}</td>
-                        <td>{{theatre.city}}</td>
-                        <td>{{theatre.theater_status}}</td>
-                        <td>{{theatre.owner}}</td>
-                        <td>{{theatre.phone_number}}</td>
+                        <td>{{t.theater_name}}</td>
+                        <td>{{t.city}}</td>
+                        <td>{{t.theater_status}}</td>
+                        <td>{{t.owner}}</td>
+                        <td>{{t.phone_number}}</td>
                         <td>
-                    <a href="{%url 'edit_theatre' theatre.id%}" class="btn btn-outline-warning">Edit</a>
-                    <a href="#" class="btn btn-outline-info">View</a>
-                    <a href="{%url 'del_theatre' theatre.id%}" class="btn btn-outline-danger">Deactivate</a>
-                </td>
+                            <a href="{%url 'edit_theatre' t.id%}" class="btn btn-outline-warning">Edit</a>
+                            <a href="#" class="btn btn-outline-info">View</a>
+                            <a href="{%url 'del_theatre' t.id%}" class="btn btn-outline-danger">Deactivate</a>
+                            <a href="{%url 'add_screen' id=t.id%}" class="btn btn-outline-danger">Add Screen</a>
+                            <a href="{%url 'list_screen'%}" class="btn btn-outline-danger">List Screen</a>
+                        </td>
                     </tr>
-
+                    {%endfor%}
 
                 </table>
+
+                {%else%}
+                <h2>NO theatre</h2>
+                {%endif%}
             </div>
-
-            {%else%}
-            <h2>NO theatre</h2>
-            {%endif%}
-
-
         </div>
     </div>
 </div>
-
 </body>
 </html>
 
