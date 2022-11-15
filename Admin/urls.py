@@ -7,4 +7,6 @@ urlpatterns=[
     path("home",views.home,name="home"),
     path("index",views.index,name="index"),
     path("dashboard",views.admindashboard,name="dashboard"),
+    path("theatre/add",views.theatre_registration_view,name="addTheatre"),
+    path("theatre",views.theatre_list_view,name="listTheatre"),
 ]

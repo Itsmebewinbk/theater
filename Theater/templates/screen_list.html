@@ -27,6 +27,7 @@
                 <h1 class="text-center">Screen List</h1>
             </div>
             <div class="card-body">
+
                 {%if screen %}
                 <table class="table table-success table-striped text-center">
 
@@ -41,15 +42,16 @@
                     </tr>
                      {%for s in screen%}
                     <tr>
-                        <td>{{s.Theater}}</td>
+                        <td>{{s.theater}}</td>
                         <td>{{s.screen_name}}</td>
                         <td>{{s.entry_fee}}</td>
                         <td>{{s.screen_status}}</td>
                         <td>{{s.total_seats}}</td>
                         <td>
-                            <a href="#" class="btn btn-outline-warning">Edit</a>
-                            <a href="" class="btn btn-outline-info">View</a>
-                            <a href="#" class="btn btn-outline-danger">Delete</a>
+                            <a href="{%url 'edit_screen' id=s.id%}" class="btn btn-outline-warning">Edit</a>
+                            <a href="{%url 'add_movie' id=s.id%}" class="btn btn-outline-info">Add Movie</a>
+                            <a href="{%url 'list_movie' id=s.id%}" class="btn btn-outline-info">List Movie</a>
+                            <a href="{%url 'delete_screen' id=s.id%}" class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
                     {%endfor%}

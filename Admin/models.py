@@ -10,7 +10,6 @@ GENDER_CHOICES = (
         ('not specified', 'not specified'),
     )
 USER_TYPE = (
-    ('admin', 'Admin'),
     ('customer', 'Customer'),
     ('theater', 'Theater')
 )

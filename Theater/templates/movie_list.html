@@ -18,49 +18,62 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-2"></div>
+        <div class="col-2">
+
+        </div>
 
         <div class="card mb-4">
             <div class="card-header">
-                <h1 class="text-center">Theatre List</h1>
+                <h1 class="text-center">Movie List</h1>
             </div>
             <div class="card-body">
-                {%if theatre%}
+
+                {%if movie %}
                 <table class="table table-success table-striped text-center">
+
                     <tr>
-                        <th>Theatre</th>
-                        <th>Theatre name</th>
-                        <th>City</th>
-                        <th>Status</th>
-                        <th>Owner</th>
-                        <th>Contacts</th>
+                        <th>Id</th>
+                        <th>POSTER</th>
+                        <th>MOVIE</th>
+                        <th>SCREEN</th>
+                        <th>PLAY_TIME</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
                         <th>Action</th>
+
+
                     </tr>
-                    {%for t in theatre%}
+
+                    {%for m in movie%}
                     <tr>
-                        <td><img class="card-img-top" src="{{theatre.image.url}}" alt="" height="60"></td>
-                        <td>{{t.theater_name}}</td>
-                        <td>{{t.city}}</td>
-                        <td>{{t.theater_status}}</td>
-                        <td>{{t.owner}}</td>
-                        <td>{{t.phone_number}}</td>
+                        <td>{{m.id}}</td>
+                        <td><img class="card-img-top" src="{{m.image.url}}" alt="" height="60"></td>
+                        <td>{{m.movie_name}}</td>
+                        <td>{{m.screen}}</td>
+                        <td>{{m.play_time}}</td>
+                        <td>{{m.start_date}}</td>
+                        <td>{{m.end_date}}</td>
                         <td>
-                            <a href="{%url 'edit_theatre' t.id%}" class="btn btn-outline-warning">Edit</a>
-                            <a href="{%url 'detail_theatre' id=t.id%}" class="btn btn-outline-info">View</a>
-                            <a href="{%url 'del_theatre' t.id%}" class="btn btn-outline-danger">Deactivate</a>
+                            <a href="" class="btn btn-outline-warning">Edit</a>
+                            <a href="" class="btn btn-outline-info">View</a>
+                            <a href="" class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
+
                     {%endfor%}
-
                 </table>
-
-                {%else%}
-                <h2>NO theatre</h2>
-                {%endif%}
             </div>
+
+
+            {%else%}
+            <h2>No Movie</h2>
+            {%endif%}
+
+
         </div>
     </div>
 </div>
+
 </body>
 </html>
 

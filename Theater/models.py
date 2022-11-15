@@ -27,6 +27,7 @@ class Theater(models.Model):
     phone_number = models.CharField(max_length=12,null=True)
     approval=models.BooleanField('Approval',default=False)
     theater_status=models.CharField(choices=THEATRE_STATUS_CHOICE,max_length=50,default='active')
+    about=models.TextField(null=True,blank=True)
 
     def __str__(self):
         return self.theater_name
@@ -46,7 +47,6 @@ class Movie(models.Model):  # singular
     play_time=models.CharField(choices=SHOWTIME,max_length=120)
     start_date = models.DateField()
     end_date=models.DateField()
-
     def __str__(self):
         return str(self.poster) + "-" + str(self.screen)
 

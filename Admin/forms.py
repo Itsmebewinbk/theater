@@ -13,3 +13,8 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model=CustomUser
         fields=("first_name","last_name","username","email","image","mobile","gender","age","usertype")
+
+class AdminTheatreRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Theater
+        fields = "__all__"

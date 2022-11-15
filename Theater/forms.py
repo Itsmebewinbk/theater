@@ -1,5 +1,5 @@
 from django import forms
-from Theater.models import Theater, Screen
+from Theater.models import Theater, Screen,Movie
 
 
 class TheatreRegistrationForm(forms.ModelForm):
@@ -28,3 +28,9 @@ class ScreenEditForm(forms.ModelForm):
         model = Screen
         exclude = ("theater",)
         fields = "__all__"
+
+class MovieAddForm(forms.ModelForm):
+    class Meta:
+        model = Movie
+        fields= "__all__"
+        exclude=("screen",)
