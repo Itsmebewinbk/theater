@@ -11,6 +11,9 @@ urlpatterns = [
     path("screen/add/<int:id>", views.add_screen, name="add_screen"),
     path("screen/edit/<int:id>", views.edit_screen, name="edit_screen"),
     path("screen/delete/<int:id>", views.delete_screen, name="delete_screen"),
-    path("Movie/add/<int:id>", views.add_movie, name="add_movie"),
-    path("Movie/list/<int:id>", views.list_movie, name="list_movie"),
+    path("Movie/add/<int:id>", views.add_show, name="add_movie"),
+    path("Movie/<int:id>", views.list_movie, name="list_movie"),
+    path("Movie/del/<int:id>", views.delete_movie, name="delete_movie"),
+    path("Show/list/<int:id>", views.list_show, name="list_show"),
+    path("Show/cancel/<int:id>", views.cancel_show, name="cancel_show"),
 ]

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<body>
+ {%if messages%}
+    {%for m in messages%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%endfor%}
+    {%endif%}
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h1 class="text-center">Theatre List</h1>
+            </div>
+            <div class="card-body">
+                {%if approve%}
+                <table class="table table-success table-striped text-center">
+                    <tr>
+                        <th>Theatre</th>
+                        <th>Theatre name</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Owner</th>
+                        <th>Contacts</th>
+                        <th>Action</th>
+                    </tr>
+                    {%for t in approve%}
+
+                    <tr>
+                        <td><img class="card-img-top" src="{{t.image.url}}" alt="" height="60"></td>
+                        <td>{{t.theater_name}}</td>
+                        <td>{{t.city}}</td>
+                        <td>{{t.theater_status}}</td>
+                        <td>{{t.owner}}</td>
+                        <td>{{t.phone_number}}</td>
+                        <td>
+
+                            <a href="{%url 'approve' id=t.id%}" class="btn btn-outline-info">Admin Approval</a>
+                            <a href="{%url 'reject' id=t.id%}" class="btn btn-outline-warning">Reject</a>
+
+                        </td>
+                    </tr>
+                    {%endfor%}
+
+                </table>
+
+                {%else%}
+                <h2>NO theatre</h2>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

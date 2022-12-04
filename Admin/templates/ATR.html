@@ -15,6 +15,23 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<body>
+ {%if messages%}
+    {%for m in messages%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%endfor%}
+    {%endif%}
 <div class="container-fluid">
     <div class="row">
         <div class="col-4">

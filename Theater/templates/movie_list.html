@@ -1,4 +1,5 @@
 <!doctype html>
+{%load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +17,41 @@
 
 </head>
 <body>
+<body>
+ {%if messages%}
+    {%for m in messages%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%endfor%}
+    {%endif%}
+ <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="{%url 'index'%}">Theatre Booking App</a>
+
+     <a class="navbar-brand" href="{%url 'customer_details' request.user.id%}"> {{request.user}}</a>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+<a class= "btn btn-outline-info" href="{{request.META.HTTP_REFERER|escape}}">Back</a>
+
+    </form>
+
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+
+         <a class="btn btn-outline-info " href="{%url 'logout' %}">Logout</a>
+    </ul>
+</nav>
+
 <div class="container">
     <div class="row">
         <div class="col-2">
@@ -29,10 +65,10 @@
             <div class="card-body">
 
                 {%if movie %}
-                <table class="table table-success table-striped text-center">
+                <table class="table table-info =text-center">
 
                     <tr>
-                        <th>Id</th>
+
                         <th>POSTER</th>
                         <th>MOVIE</th>
                         <th>SCREEN</th>
@@ -40,23 +76,20 @@
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Action</th>
-
-
                     </tr>
 
                     {%for m in movie%}
                     <tr>
-                        <td>{{m.id}}</td>
-                        <td><img class="card-img-top" src="{{m.image.url}}" alt="" height="60"></td>
+                        <td><img class="card-img-top" src="{{m.poster.url}}" height="100"></td>
                         <td>{{m.movie_name}}</td>
                         <td>{{m.screen}}</td>
                         <td>{{m.play_time}}</td>
                         <td>{{m.start_date}}</td>
                         <td>{{m.end_date}}</td>
                         <td>
-                            <a href="" class="btn btn-outline-warning">Edit</a>
-                            <a href="" class="btn btn-outline-info">View</a>
-                            <a href="" class="btn btn-outline-danger">Delete</a>
+
+                            <a href="{%url 'delete_movie' id=m.id%}" class="btn btn-outline-danger">Delete</a>
+                            <a href="{%url 'list_show' id=m.id%}" class="btn btn-outline-info">List Show</a>
                         </td>
                     </tr>
 

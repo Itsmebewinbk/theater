@@ -8,7 +8,8 @@ THEATRE_STATUS_CHOICE = (
 SCREEN_STATUS = (
     ("empty", "empty"),
     ("filling", "filling"),
-    ("Housefull", "Housefull"),
+    ("almostfull","almostfull"),
+    ("housefull", "housefull"),
     ("cancelled", "cancelled")
 )
 SHOWTIME = (
@@ -21,7 +22,7 @@ SHOWTIME = (
 class Theater(models.Model):
     theater_name = models.CharField(max_length=120,unique=True)
     city = models.CharField(max_length=50,null=True)
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)# one to one relation
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE,)# one to one relation
     image = models.ImageField(upload_to="images/",null=True)
     email_id = models.EmailField(verbose_name='email_address',max_length=255,unique=True)
     phone_number = models.CharField(max_length=12,null=True)
@@ -32,13 +33,12 @@ class Theater(models.Model):
     def __str__(self):
         return self.theater_name
 class Screen(models.Model):
-    screen_name=models.CharField(unique=True,max_length=100)
-    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
+    screen_name=models.CharField(max_length=100)
+    theater = models.ForeignKey(Theater, on_delete=models.CASCADE,related_name="theatreowned")
     entry_fee = models.IntegerField(default=100)
     total_seats = models.IntegerField(default=50)
     def __str__(self):
         return self.screen_name
-
 
 class Movie(models.Model):  # singular
     poster = models.ImageField(upload_to="images/",null=True)
@@ -48,14 +48,14 @@ class Movie(models.Model):  # singular
     start_date = models.DateField()
     end_date=models.DateField()
     def __str__(self):
-        return str(self.poster) + "-" + str(self.screen)
+        return str(self.movie_name)
 
 class Show(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE,)
     screen_status = models.CharField(choices=SCREEN_STATUS, max_length=120, default="empty")
     date = models.DateField()
-    play_time=models.DateTimeField(auto_now_add=True)
+    play_time = models.CharField(choices=SHOWTIME, max_length=120)
     TotalBooking=models.PositiveIntegerField()
 
     def __str__(self):
-        return str(self.movie) + "-"  + str(self.date)
+        return str(self.movie)

@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{%block body_block%}
+{%load static%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form action="" class="border border-2 border-dark p-4  rounded text-center" method="post" enctype="multipart/form-data">
+                <h2 class="mb-3">Edit </h2>
+                {%csrf_token%}
+                {{form.as_p}}
+  <button class="btn btn-outline-success" type="submit">Submit</button>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="col-3"></div>
+</div>
+{%endblock%}

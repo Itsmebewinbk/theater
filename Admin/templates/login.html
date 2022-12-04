@@ -16,6 +16,23 @@
 </head>
 
 <body>
+<body>
+ {%if messages%}
+    {%for m in messages%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{m}}</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {%endif%}
+    {%endfor%}
+    {%endif%}
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -39,9 +56,12 @@
                             </div>
                         </div>
                         <div>
-                            <p class="mb-0"><a href="{%url 'user_register' %}"
-                                                                      class="text-white-50 fw-bold">User Sign
-                                Up</a>
+                            <p class="mb-0"><a href="{%url 't_user_register' %}"
+                                                                      class="text-white-50 fw-bold">Theater Sign Up
+                                </a>
+                                 <p class="mb-0"><a href="{%url 'c_user_register' %}"
+                                                                      class="text-white-50 fw-bold">Customer Sign Up
+                                </a>
                             </p>
                         </div>
                         <div>
@@ -61,5 +81,4 @@
     <!-- Core theme JS-->
     <script src="{%static 'js/scripts.js' %}"></script>
 </section>
-</body>
 </html>

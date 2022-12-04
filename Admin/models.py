@@ -14,7 +14,6 @@ USER_TYPE = (
     ('theater', 'Theater')
 )
 
-
 class Manager(UserManager):
     def create_superuser(self, username, email, password, **extra_fields):
         extra_fields['is_superuser'] = True
@@ -30,7 +29,6 @@ class CustomUser(AbstractUser):
     usertype = models.CharField(choices=USER_TYPE, max_length=50,default="admin")
     def _str_(self):
         return self.name
-
     objects = Manager()
 # class BaseUser(AbstractBaseUser,PermissionsMixin):
 #     first_name=models.CharField(max_length=25)

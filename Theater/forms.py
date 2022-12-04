@@ -1,11 +1,11 @@
 from django import forms
-from Theater.models import Theater, Screen,Movie
+from Theater.models import Theater, Screen,Movie,Show
 
 
 class TheatreRegistrationForm(forms.ModelForm):
     class Meta:
         model = Theater
-        exclude = ("approval", "owner")
+        exclude = ("approval", "owner",)
         fields = "__all__"
 
 
@@ -34,3 +34,14 @@ class MovieAddForm(forms.ModelForm):
         model = Movie
         fields= "__all__"
         exclude=("screen",)
+        widgets = {
+            "start_date": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+            "end_date": forms.DateInput(attrs={"class": "form-control", "type": "date"})
+        }
+
+class ShowAddForm(forms.ModelForm):
+    class Meta:
+        model= Show
+        fields="__all__"
+        exclude=("movie","play_time","date","screen_status")
+

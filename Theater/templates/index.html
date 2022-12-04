@@ -1,17 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Theatre</h1>
-<span class="mb-0"><a href="{%url 'add_theatre' %}" class="text-white-50 fw-bold">Add Theatre</a></span>
-<span class="mb-0"><a href="{%url 'list_theatre' %}" class="text-white-50 fw-bold">List Theatre</a></span>
-<span class="mb-0"><a href="{%url 'logout' %}" class="text-white-50 fw-bold">Log Out</a></span>
-<div>
+{%extends 'bases.html'%}
+{%block body_block%}
+{%load static%}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
 
-</div>
+                {%if movie %}
+                <table class="table table-dark text-center">
 
-</body>
-</html>
+                    <tr>
+
+                        <th>POSTER</th>
+                        <th></th>
+                        <th>MOVIE</th>
+                         <th></th>
+                        <th>THEATER</th>
+                         <th></th>
+                        <th>SCREEN</th>
+                         <th></th>
+                        <th>PLAY_TIME</th>
+                         <th></th>
+                        <th>Start Date</th>
+                         <th></th>
+                        <th>End Date</th>
+                         <th></th>
+                        <th>Action</th>
+                         <th></th>
+                    </tr>
+
+                    {%for m in movie%}
+                    <tr>
+                        <td><img class="card-img-top" src="{{m.poster.url}}" height="100"></td>
+                         <td></td>
+                        <td>{{m.movie_name}}</td>
+                         <td></td>
+                        <td>{{m.screen.theater.theater_name}}</td>
+                         <td></td>
+                        <td>{{m.screen}}</td>
+                         <td></td>
+                        <td>{{m.play_time}}</td>
+                         <td></td>
+                        <td>{{m.start_date}}</td>
+                         <td></td>
+                        <td>{{m.end_date}}</td>
+                         <td></td>
+
+                        <td>
+
+                            <a href="{%url 'delete_movie' id=m.id%}" class="btn btn-outline-danger">Delete</a>
+                            <a href="{%url 'list_show' id=m.id%}" class="btn btn-outline-info">List Show</a>
+                        </td>
+                         <td></td>
+                    </tr>
+
+                    {%endfor%}
+                </table>
+            </div>
+
+
+            {%else%}
+            <h2>No Movie</h2>
+            {%endif%}
+
+
+        </div>
+    </div>
+
+
+{%endblock%}
