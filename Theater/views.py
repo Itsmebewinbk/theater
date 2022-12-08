@@ -105,9 +105,8 @@ def add_screen(request, id):
 
 @signin_required
 @theatre_login
-def list_screen(request, id):
-    theatre = Theater.objects.get(id=id)
-    all_screens = Screen.objects.filter(theater=theatre)
+def list_screen(request,):
+    all_screens = Screen.objects.filter(theater__owner=request.user)
     return render(request, "screen_list.html", {"screen": all_screens})
 
 
@@ -123,7 +122,7 @@ def edit_screen(request, id):
             msg = "Screen has been edited"
             messages.success(request, msg)
             form.save()
-            return redirect("list_screen", id=id)
+            return redirect("list_screen",)
         else:
             msg = "Screen updation failed"
             messages.error(request, msg)
@@ -136,7 +135,7 @@ def edit_screen(request, id):
 def delete_screen(request, id):
         Screen.objects.get(id=id).delete()
         messages.success(request, "Screen deleted")
-        return redirect("screen_list",id=id)
+        return redirect("screen_list",)
 
 # ---------------------------------------------------MOVIE-------------------------------------------------------------------------------------------------
 @signin_required
@@ -197,7 +196,7 @@ def add_show(request, id):
         for date1 in dates]
         Show.objects.bulk_create(show)
         messages.success(request, "Show has been added")
-        return redirect("list_movie", id=id)
+        return redirect("list_movie")
     return render(request, "movie_registration.html", context)
 
         #Atomic_Transaction
@@ -207,18 +206,17 @@ def add_show(request, id):
 
 @signin_required
 @theatre_login
-def list_movie(request, id):
-    screen = Screen.objects.get(id=id)
-    all_movies = Movie.objects.filter(screen=screen)
+def list_movie(request):
+    all_movies = Movie.objects.filter(screen__theater__owner=request.user)
     return render(request, "movie_list.html", {"movie": all_movies})
 
 @signin_required
 @theatre_login
-def delete_movie(request,id,*args):
+def delete_movie(request,id,):
     movie=Movie.objects.get(id=id)
     movie.delete()
     messages.success(request,"Movie deleted")
-    return redirect("list_movie",screen__movie__id=id)
+    return redirect("list_movie")
 
 @signin_required
 @theatre_login
@@ -232,7 +230,7 @@ def cancel_show(request,id):
     show = Show.objects.get(id=id)
     show.screen_status = "cancelled"
     show.save()
-    return redirect(request,)
+    return redirect(request,"list_show",id=id)
 
 
 

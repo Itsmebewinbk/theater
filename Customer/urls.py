@@ -14,5 +14,6 @@ urlpatterns=[
     path("delete/booking/<int:id>", views.cancellation,name="cancelled"),
     path("customer-detail/<int:id>", views.customer_details,name="customer_details"),
     path("customer-detail_edit/<int:id>", views.customer_edit,name="customer_details_edit"),
+    path("email/<int:id>", views.email,name="email")
 
 ]

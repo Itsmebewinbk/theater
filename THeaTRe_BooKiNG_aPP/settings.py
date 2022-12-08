@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "Theater",
     "rest_framework",
     "Admin",
+    "django_celery_results",
 ]
 
 
@@ -135,4 +136,15 @@ EMAIL_USE_TLS=True
 EMAIL_HOST_USER="mindlesspeople1217@gmail.com"
 EMAIL_HOST_PASSWORD="yjzunxhvtxxhqxxw"
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+
+# CELERY SETTINGS
+CELERY_BROKER_URL = 'redis: //127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT=['json']
+CELERY_RESULT_SERIALIZER='json'
+CELERY_TASK_SERIALIZER="json"
+CELERY_TIMEZONE="Asia/Kolkata"
+CELERY_RESULT_BACKEND='django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_QUEUES= None
+
 

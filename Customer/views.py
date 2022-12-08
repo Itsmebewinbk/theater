@@ -5,10 +5,15 @@ from Customer.forms import BookingForm,CustomerEditForm
 from django.contrib import messages
 from Admin.decorators import signin_required, theatre_login, customer_login, admin_login
 from django.core.mail import send_mail
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives,EmailMessage
 from datetime import time, date
 import datetime
 from django.template.loader import get_template
+
+from  celery import shared_task
+import os
+
+
 
 
 @signin_required
@@ -17,20 +22,23 @@ def home(request, *args, **kwargs):
     all_movie = Movie.objects.all()
     return render(request, "home.html", {"movies": all_movie})
 
-
+@signin_required
+@customer_login
 def movie_detail_view(request, id):
     movies = Movie.objects.get(id=id)
     return render(request, "customer_movie_detail.html", {"movie": movies})
 
-
+@signin_required
+@customer_login
 def theatre_list(request):
     all_theatre = Theater.objects.exclude(theater_status="inactive").exclude(approval=False)
     return render(request, "customer_theatre_list.html", {'theatre': all_theatre})
 
-
+@signin_required
+@customer_login
 def show_list(request, id):
     movies = Movie.objects.get(id=id)
-    show = Show.objects.filter(movie=movies)
+    show = Show.objects.filter(movie=movies).exclude(screen_status="cancelled")
     showss=[shows for shows in show if shows.date>=date.today()]
     # for shows in show:
     #     if shows.date >= date.today():
@@ -39,7 +47,8 @@ def show_list(request, id):
     #         messages.error(request, "NO SHOW")
     return render(request, "customer_movies_list.html", {"show": showss})
 
-
+@signin_required
+@customer_login
 def customer_booking(request, id):
     form = BookingForm()
     show = Show.objects.get(id=id)  # 9,13,17,21
@@ -102,19 +111,12 @@ def customer_booking(request, id):
             BookingRequest.objects.create(**form.cleaned_data)
             # movie= Movie.objects.values("movie_name").filter(show__id=show.id).values_list("movie_name",flat=True)
             # show= Show.objects.filter(id=show.id)
-            booked=BookingRequest.objects.get(show=show)
-            customer=CustomUser.objects.filter(id=request.user.id)
-            email=[i.email for i in customer]
-            # context={}
-            # context["booked"]=booked
-            template = get_template('show_booked.html')
-            msg = EmailMultiAlternatives(  "Show Booked",None,'mindlesspeople1217@gmail.com', email,)
-            msg.attach_alternative(template.render({"booked":booked}), "text/html")
-            msg.send()
+
+           
             # send_mail("Show Booked",
             #             None,
             #             'mindlesspeople1217@gmail.com',
-            #             ('pratikshapoojari10@gmail.com',),
+            #             ('vbgd10@gmail.com',),
             #             fail_silently=False,
             #             html_message=template
             #           )
@@ -125,6 +127,23 @@ def customer_booking(request, id):
 
     return render(request, "booking.html", {"form": form})
 
+@shared_task(bind=True)
+def email(request):
+    show = Show.objects.get(id=id)
+    customer=CustomUser.objects.filter(id=request.user.id)
+    email=[emails.email for emails in customer]
+    path = os.getcwd()
+    booked = BookingRequest.objects.filter(show=show)
+    filename = path + show.movie.poster.url
+    template = get_template('show_booked.html')
+    msg = EmailMultiAlternatives( "Show Booked",None,'mindlesspeople1217@gmail.com', email,)
+    msg.attach_alternative(template.render({"booked":booked}), "text/html")
+    msg.attach_file(filename)
+    msg.send()
+    
+
+@signin_required
+@customer_login
 def cancellation(request,id):
     booking = BookingRequest.objects.get(id=id)
     if booking.delete():
@@ -142,32 +161,49 @@ def cancellation(request,id):
                 show.save()
     else:
         messages.error(request, "Error")
+    # customer = CustomUser.objects.filter(id=request.user.id)
+    # email = [emails.email for emails in customer]
+    # template = get_template('show_cancelled.html')
+    # msg = EmailMultiAlternatives("Show Cancelled", "Your show have been cancelled succefully", 'mindlesspeople1217@gmail.com', email, )
+    # msg.attach_alternative(template.render({"booked": booking}), "text/html")
+    # msg.send()
     messages.success(request, "Booking Cancelled")
     return redirect("booked")
-
+    
+@signin_required
+@customer_login
 def booked_list(request):
     booked=BookingRequest.objects.filter(customer=request.user)
     return render(request, "booked_list.html", {"booked": booked})
 
+@signin_required
+@customer_login
 def morning_show(request):
     movie = Movie.objects.filter(play_time="Morning")
     return render(request, "morning_list.html", {"movie": movie})
-
+@signin_required
+@customer_login
 def noon_show(request):
     movie = Movie.objects.filter(play_time="Noon")
     return render(request, "noon_list.html", {"movie": movie})
-
+@signin_required
+@customer_login
 def first_show(request):
     movie = Movie.objects.filter(play_time="1st")
     return render(request, "1st_list.html", {"movie": movie})
-
+@signin_required
+@customer_login
 def second_show(request):
     movie = Movie.objects.filter(play_time="2nd")
     return render(request, "2nd_list.html", {"movie": movie})
-
+@signin_required
+@customer_login
 def customer_details(request,id):
     CustomUser.objects.filter(id=request.user.id)
     return render(request,"customer_details.html",)
+
+@signin_required
+@customer_login   
 def customer_edit(request,id):
     # CustomUser.objects.filter(id=request.user.id)
     form=CustomerEditForm(instance=request.user)

@@ -16,6 +16,23 @@
 
 </head>
 <body>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="{%url 'index'%}">Theatre Booking App</a>
+
+    <a class="navbar-brand" href="{%url 'customer_details' request.user.id%}"> {{request.user}}</a>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+<a class= "btn btn-outline-info" href="{{request.META.HTTP_REFERER|escape}}">Back</a>
+
+    </form>
+
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+
+         <a class="btn btn-outline-info " href="{%url 'logout' %}">Logout</a>
+    </ul>
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-2">
@@ -37,23 +54,6 @@
     {%endif%}
 
         </div>
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="{%url 'index'%}">Theatre Booking App</a>
-
-    <a class="navbar-brand" href="{%url 'customer_details' request.user.id%}"> {{request.user}}</a>
-    <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-<a class= "btn btn-outline-info" href="{{request.META.HTTP_REFERER|escape}}">Back</a>
-
-    </form>
-
-    <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-
-         <a class="btn btn-outline-info " href="{%url 'logout' %}">Logout</a>
-    </ul>
-</nav>
 
         <div class="card mb-4">
             <div class="card-header">
@@ -81,7 +81,7 @@
                         <td>
                             <a href="{%url 'edit_screen' id=s.id%}" class="btn btn-outline-warning">Edit</a>
                             <a href="{%url 'add_movie' id=s.id%}" class="btn btn-outline-info">Add Movie</a>
-                            <a href="{%url 'list_movie' id=s.id%}" class="btn btn-outline-info">List Movie</a>
+                            <a href="{%url 'list_movie'%}" class="btn btn-outline-info">List Movie</a>
                             <a href="{%url 'delete_screen' id=s.id%}" class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>

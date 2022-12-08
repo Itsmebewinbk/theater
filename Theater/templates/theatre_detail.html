@@ -75,7 +75,7 @@
                 <div class="card-body">
                     {%if theatre.approval == True%}
                     <a href="{%url 'add_screen' id=theatre.id%}" class="btn btn-outline-info">Add Screen</a>
-                    <a href="{%url 'list_screen' id=theatre.id%}" class="btn btn-outline-info">List Screen</a>
+                    <a href="{%url 'list_screen'%}" class="btn btn-outline-info">List Screen</a>
                     {%endif%}
                 </div>
                 <div class="col-2">
