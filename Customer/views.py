@@ -9,8 +9,7 @@ from django.core.mail import EmailMultiAlternatives,EmailMessage
 from datetime import time, date
 import datetime
 from django.template.loader import get_template
-
-from  celery import shared_task
+from Customer.tasks.task import send_emails
 import os
 
 
@@ -109,6 +108,8 @@ def customer_booking(request, id):
             form.cleaned_data["screen"] = screen
             form.cleaned_data["show"] = show
             BookingRequest.objects.create(**form.cleaned_data)
+            send_emails.delay(id)
+            
             # movie= Movie.objects.values("movie_name").filter(show__id=show.id).values_list("movie_name",flat=True)
             # show= Show.objects.filter(id=show.id)
 
@@ -117,7 +118,7 @@ def customer_booking(request, id):
             #             None,
             #             'mindlesspeople1217@gmail.com',
             #             ('vbgd10@gmail.com',),
-            #             fail_silently=False,
+            #             fail_silently=False,gin
             #             html_message=template
             #           )
             return redirect("booked")
@@ -127,19 +128,19 @@ def customer_booking(request, id):
 
     return render(request, "booking.html", {"form": form})
 
-@shared_task(bind=True)
-def email(request):
-    show = Show.objects.get(id=id)
-    customer=CustomUser.objects.filter(id=request.user.id)
-    email=[emails.email for emails in customer]
-    path = os.getcwd()
-    booked = BookingRequest.objects.filter(show=show)
-    filename = path + show.movie.poster.url
-    template = get_template('show_booked.html')
-    msg = EmailMultiAlternatives( "Show Booked",None,'mindlesspeople1217@gmail.com', email,)
-    msg.attach_alternative(template.render({"booked":booked}), "text/html")
-    msg.attach_file(filename)
-    msg.send()
+# @shared_task(bind=True)
+# def email(request):
+#     show = Show.objects.get(id=id)
+#     customer=CustomUser.objects.filter(id=request.user.id)
+#     email=[emails.email for emails in customer]
+#     path = os.getcwd()
+#     booked = BookingRequest.objects.filter(show=show)
+#     filename = path + show.movie.poster.url
+#     template = get_template('show_booked.html')
+#     msg = EmailMultiAlternatives( "Show Booked",None,'mindlesspeople1217@gmail.com', email,)
+#     msg.attach_alternative(template.render({"booked":booked}), "text/html")
+#     msg.attach_file(filename)
+#     msg.send()
     
 
 @signin_required

@@ -12,12 +12,9 @@ app.conf.update(timezone = 'Asia/Kolkata')
 app.config_from_object(settings,namespace="CELERY")
 # app.config_from_object("django.conf:settings",namespace="CELERY")
 
-#CELERY BEAT SETTING
+app.autodiscover_tasks()
 
-app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
-@app.on_after_configure.connect()
-def trigger_autodiscovery(sender, **kwargs):
-    app.loader.import_default_modules()
+
 
 @app.task(bind=True)
 def debug_task(self):
