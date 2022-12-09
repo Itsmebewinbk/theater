@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "Theater",
     "rest_framework",
     "Admin",
-    "django_celery_results",
+   
 ]
 
 
@@ -143,8 +143,7 @@ CELERY_ACCEPT_CONTENT=['json']
 CELERY_RESULT_SERIALIZER='json'
 CELERY_TASK_SERIALIZER="json"
 CELERY_TIMEZONE="Asia/Kolkata"
-CELERY_RESULT_BACKEND='django-db'
-CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_RESULT_BACKEND='redis: //127.0.0.1:6379'
 CELERY_QUEUES= None
 
 
