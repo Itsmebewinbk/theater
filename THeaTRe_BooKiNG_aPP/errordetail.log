@@ -4500,6 +4500,7 @@ INFO 2023-02-09 11:00:58,395 Thread-4 140603463558912 basehttp basehttp.py 187 d
 INFO 2023-02-09 11:00:58,425 Thread-5 140603455166208 basehttp basehttp.py 187 django.server log_message 68966 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
 INFO 2023-02-09 11:00:58,426 Thread-8 140603471951616 basehttp basehttp.py 187 django.server log_message 68966 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
 INFO 2023-02-09 11:00:58,484 Thread-7 140603438380800 basehttp basehttp.py 187 django.server log_message 68966 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+<<<<<<< HEAD
 INFO 2023-08-19 19:40:32,285 MainThread 24044 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 24308 Watching for file changes with StatReloader
 INFO 2023-08-19 19:43:30,126 MainThread 40296 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 30488 Watching for file changes with StatReloader
 INFO 2023-08-19 19:43:35,098 Thread-1 24420 basehttp basehttp.py 212 django.server log_message 30488 "GET / HTTP/1.1" 200 3671
@@ -4516,3 +4517,51 @@ INFO 2023-08-19 19:58:23,122 MainThread 40296 autoreload autoreload.py 266 djang
 INFO 2023-08-19 19:58:23,196 MainThread 24044 autoreload autoreload.py 266 django.utils.autoreload trigger_reload 24308 C:\Users\User\Documents\django frame\theater\Theater\migrations\__init__.py changed, reloading.
 INFO 2023-08-19 19:58:25,088 MainThread 18840 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 34088 Watching for file changes with StatReloader
 INFO 2023-08-19 19:58:25,148 MainThread 19308 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 24168 Watching for file changes with StatReloader
+=======
+INFO 2023-08-19 14:02:13,271 MainThread 140624598966272 autoreload autoreload.py 677 django.utils.autoreload run_with_reloader 67455 Watching for file changes with StatReloader
+INFO 2023-08-19 14:03:53,875 MainThread 140624598966272 autoreload autoreload.py 266 django.utils.autoreload trigger_reload 67455 /home/bevin/Documents/backup/Downloads/study/enfono/theatre_booking_app/THeaTRe_BooKiNG_aPP/settings.py changed, reloading.
+INFO 2023-08-19 14:03:54,474 MainThread 140062230994944 autoreload autoreload.py 677 django.utils.autoreload run_with_reloader 67605 Watching for file changes with StatReloader
+INFO 2023-08-19 14:12:09,236 MainThread 139790842011648 autoreload autoreload.py 677 django.utils.autoreload run_with_reloader 68027 Watching for file changes with StatReloader
+INFO 2023-08-19 14:19:53,947 MainThread 140545518301184 autoreload autoreload.py 677 django.utils.autoreload run_with_reloader 68948 Watching for file changes with StatReloader
+INFO 2023-08-19 14:19:57,352 MainThread 139905561341952 autoreload autoreload.py 677 django.utils.autoreload run_with_reloader 68971 Watching for file changes with StatReloader
+INFO 2023-08-19 14:20:01,691 Thread-1 (process_request_thread) 139905357313600 basehttp basehttp.py 187 django.server log_message 68971 "GET / HTTP/1.1" 200 3671
+INFO 2023-08-19 14:20:01,705 Thread-2 (process_request_thread) 139905348920896 basehttp basehttp.py 187 django.server log_message 68971 "GET /static/js/scripts.js HTTP/1.1" 200 330
+INFO 2023-08-19 14:20:01,705 Thread-1 (process_request_thread) 139905357313600 basehttp basehttp.py 187 django.server log_message 68971 "GET /static/css/style.css HTTP/1.1" 200 369
+WARNING 2023-08-19 14:20:01,870 Thread-1 (process_request_thread) 139905357313600 basehttp basehttp.py 187 django.server log_message 68971 "GET /favicon.ico HTTP/1.1" 404 5534
+ERROR 2023-08-19 14:20:07,112 Thread-1 (process_request_thread) 139905357313600 basehttp basehttp.py 187 django.server log_message 68971 "POST / HTTP/1.1" 500 170058
+INFO 2023-08-19 14:20:09,928 Thread-1 (process_request_thread) 139905357313600 basehttp basehttp.py 187 django.server log_message 68971 "GET / HTTP/1.1" 200 3671
+>>>>>>> 9829db48ac0018af5876a8bf1b5231205814ee1e
+INFO 2023-08-19 20:32:35,085 MainThread 19280 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 27100 Watching for file changes with StatReloader
+INFO 2023-08-19 20:35:26,691 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET / HTTP/1.1" 200 3671
+INFO 2023-08-19 20:35:27,229 Thread-2 27404 basehttp basehttp.py 212 django.server log_message 27100 "GET /static/js/scripts.js HTTP/1.1" 200 336
+INFO 2023-08-19 20:35:27,229 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /static/css/style.css HTTP/1.1" 200 369
+WARNING 2023-08-19 20:35:27,333 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /favicon.ico HTTP/1.1" 404 5534
+INFO 2023-08-19 20:35:37,119 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /theater_user_register HTTP/1.1" 200 4166
+INFO 2023-08-19 20:35:45,039 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /theater_user_register HTTP/1.1" 200 4166
+INFO 2023-08-19 20:36:24,044 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "POST /theater_user_register HTTP/1.1" 302 0
+INFO 2023-08-19 20:36:24,065 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET / HTTP/1.1" 200 3998
+INFO 2023-08-19 20:36:34,806 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "POST / HTTP/1.1" 302 0
+INFO 2023-08-19 20:36:34,830 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /index HTTP/1.1" 200 3089
+INFO 2023-08-19 20:36:40,608 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre HTTP/1.1" 200 1868
+INFO 2023-08-19 20:36:43,146 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /index HTTP/1.1" 200 2775
+INFO 2023-08-19 20:36:46,175 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre/add HTTP/1.1" 200 3271
+INFO 2023-08-19 20:37:59,992 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "POST /Theatre/theatre/add HTTP/1.1" 302 0
+INFO 2023-08-19 20:38:00,021 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre HTTP/1.1" 200 3544
+INFO 2023-08-19 20:38:00,178 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /media/images/DSC_2332.JPG HTTP/1.1" 200 5786301
+INFO 2023-08-19 20:38:32,786 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre/detail/1 HTTP/1.1" 200 2595
+INFO 2023-08-19 20:38:32,827 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /media/images/DSC_2332.JPG HTTP/1.1" 304 0
+INFO 2023-08-19 20:38:50,761 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre HTTP/1.1" 200 3219
+INFO 2023-08-19 20:38:53,053 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre/add HTTP/1.1" 200 3271
+INFO 2023-08-19 20:39:15,695 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre/add HTTP/1.1" 200 3271
+INFO 2023-08-19 20:39:25,112 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre HTTP/1.1" 200 3205
+INFO 2023-08-19 20:39:25,152 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /media/images/DSC_2332.JPG HTTP/1.1" 304 0
+INFO 2023-08-19 20:39:27,526 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre/edit/1 HTTP/1.1" 200 3278
+INFO 2023-08-19 20:40:03,931 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "POST /Theatre/theatre/edit/1 HTTP/1.1" 302 0
+INFO 2023-08-19 20:40:03,997 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre HTTP/1.1" 200 3543
+INFO 2023-08-19 20:40:04,035 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /media/images/DSC_2332.JPG HTTP/1.1" 304 0
+INFO 2023-08-19 20:40:09,910 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre/edit/1 HTTP/1.1" 200 3278
+INFO 2023-08-19 20:40:14,186 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "POST /Theatre/theatre/edit/1 HTTP/1.1" 302 0
+INFO 2023-08-19 20:40:14,237 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre HTTP/1.1" 200 3543
+INFO 2023-08-19 20:40:16,062 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre/detail/1 HTTP/1.1" 200 2595
+INFO 2023-08-19 20:40:23,001 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /Theatre/theatre HTTP/1.1" 200 3224
+INFO 2023-08-19 20:40:23,038 Thread-1 22940 basehttp basehttp.py 212 django.server log_message 27100 "GET /media/images/DSC_2332.JPG HTTP/1.1" 304 0
