@@ -5,3 +5,4 @@ __pycache__/
 /Theatre_Booking
 *.sqlite3
 .idea
+/venv/
