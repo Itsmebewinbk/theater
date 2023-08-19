@@ -3727,3 +3727,26 @@ Traceback (most recent call last):
   File "/home/bevin/.local/lib/python3.10/site-packages/django/db/backends/sqlite3/base.py", line 357, in execute
     return Database.Cursor.execute(self, query, params)
 django.db.utils.OperationalError: no such table: Admin_customuser
+WARNING 2023-08-19 14:56:35,537 log log.py 241 log_response Not Found: /favicon.ico
+WARNING 2023-08-19 16:44:41,740 log log.py 241 log_response Not Found: /api/docs/
+WARNING 2023-08-19 16:44:42,046 log log.py 241 log_response Not Found: /api/docs/
+WARNING 2023-08-19 16:44:47,326 log log.py 241 log_response Not Found: /api/docs/
+WARNING 2023-08-19 16:44:48,092 log log.py 241 log_response Not Found: /api/docs/
+ERROR 2023-08-19 16:45:37,083 log log.py 241 log_response Internal Server Error: /Customer/movie/search
+Traceback (most recent call last):
+  File "/home/bevin/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/bevin/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bevin/Documents/backup/Downloads/study/enfono/theatre_booking_app/Customer/views.py", line 25, in search_movie
+    return render(request, 'movie_name.html', {'movies': movies})
+UnboundLocalError: local variable 'movies' referenced before assignment
+ERROR 2023-08-19 16:45:41,467 log log.py 241 log_response Internal Server Error: /Customer/movie/search
+Traceback (most recent call last):
+  File "/home/bevin/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/bevin/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/bevin/Documents/backup/Downloads/study/enfono/theatre_booking_app/Customer/views.py", line 25, in search_movie
+    return render(request, 'movie_name.html', {'movies': movies})
+UnboundLocalError: local variable 'movies' referenced before assignment
