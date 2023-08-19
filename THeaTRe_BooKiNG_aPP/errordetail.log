@@ -4500,3 +4500,19 @@ INFO 2023-02-09 11:00:58,395 Thread-4 140603463558912 basehttp basehttp.py 187 d
 INFO 2023-02-09 11:00:58,425 Thread-5 140603455166208 basehttp basehttp.py 187 django.server log_message 68966 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
 INFO 2023-02-09 11:00:58,426 Thread-8 140603471951616 basehttp basehttp.py 187 django.server log_message 68966 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
 INFO 2023-02-09 11:00:58,484 Thread-7 140603438380800 basehttp basehttp.py 187 django.server log_message 68966 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2023-08-19 19:40:32,285 MainThread 24044 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 24308 Watching for file changes with StatReloader
+INFO 2023-08-19 19:43:30,126 MainThread 40296 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 30488 Watching for file changes with StatReloader
+INFO 2023-08-19 19:43:35,098 Thread-1 24420 basehttp basehttp.py 212 django.server log_message 30488 "GET / HTTP/1.1" 200 3671
+INFO 2023-08-19 19:43:35,821 Thread-1 24420 basehttp basehttp.py 212 django.server log_message 30488 "GET /static/css/style.css HTTP/1.1" 200 369
+INFO 2023-08-19 19:43:35,832 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "GET /static/js/scripts.js HTTP/1.1" 200 336
+WARNING 2023-08-19 19:43:35,919 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "GET /favicon.ico HTTP/1.1" 404 5534
+INFO 2023-08-19 19:43:50,674 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "GET /theater_user_register HTTP/1.1" 200 4166
+INFO 2023-08-19 19:44:08,664 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "GET / HTTP/1.1" 200 3671
+ERROR 2023-08-19 19:44:30,069 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "POST / HTTP/1.1" 500 172344
+INFO 2023-08-19 19:44:35,701 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "GET /theater_user_register HTTP/1.1" 200 4166
+ERROR 2023-08-19 19:47:34,659 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "POST /theater_user_register HTTP/1.1" 500 168406
+ERROR 2023-08-19 19:47:41,526 Thread-2 23928 basehttp basehttp.py 212 django.server log_message 30488 "POST /theater_user_register HTTP/1.1" 500 168406
+INFO 2023-08-19 19:58:23,122 MainThread 40296 autoreload autoreload.py 266 django.utils.autoreload trigger_reload 30488 C:\Users\User\Documents\django frame\theater\Theater\migrations\0001_initial.py changed, reloading.
+INFO 2023-08-19 19:58:23,196 MainThread 24044 autoreload autoreload.py 266 django.utils.autoreload trigger_reload 24308 C:\Users\User\Documents\django frame\theater\Theater\migrations\__init__.py changed, reloading.
+INFO 2023-08-19 19:58:25,088 MainThread 18840 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 34088 Watching for file changes with StatReloader
+INFO 2023-08-19 19:58:25,148 MainThread 19308 autoreload autoreload.py 668 django.utils.autoreload run_with_reloader 24168 Watching for file changes with StatReloader
