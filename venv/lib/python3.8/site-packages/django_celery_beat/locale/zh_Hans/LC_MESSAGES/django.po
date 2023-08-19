@@ -3,16 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 00:36+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-10-14 23:48+0200\n"
 "Last-Translator: Rainshaw <rxg@live.com>\n"
 "Language-Team: x_zhuo <LL@li.org>\n"
-"Language: zh-hans \n"
+"Language: zh-Hans \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,7 +31,7 @@ msgstr "任务需要一个名称"
 
 #: .\django_celery_beat\admin.py:91 .\django_celery_beat\models.py:589
 msgid "Only one can be set, in expires and expire_seconds"
-msgstr ""
+msgstr "不可以同时设置 expires 和 expire_seconds 字段"
 
 #: .\django_celery_beat\admin.py:101
 #, python-format
@@ -63,7 +62,7 @@ msgstr "切换选中的任务"
 #: .\django_celery_beat\admin.py:217
 #, python-brace-format
 msgid "task \"{0}\" not found"
-msgstr ""
+msgstr "未找到\"{0}\"任务"
 
 #: .\django_celery_beat\admin.py:229
 #, python-brace-format
@@ -398,7 +397,8 @@ msgstr "优先级"
 msgid ""
 "Priority Number between 0 and 255. Supported by: RabbitMQ, Redis (priority "
 "reversed, 0 is highest)."
-msgstr "优先级数字，介于0和255之间。支持者：RabbitMQ，Redis（优先级颠倒，0是最高）。"
+msgstr ""
+"优先级数字，介于0和255之间。支持者：RabbitMQ，Redis（优先级颠倒，0是最高）。"
 
 #: .\django_celery_beat\models.py:482
 msgid "Expires Datetime"
