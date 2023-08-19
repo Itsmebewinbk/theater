@@ -96,7 +96,7 @@ def add_screen(request, id):
             # form.cleaned_data["theater"]=Theater.objects.get(owner=request.user)  #For 1 to 1 User
             # Screen.objects.create(**form.cleaned_data)
             messages.success(request, "Screen have been added")
-            return redirect("list_screen", id=id)
+            return redirect("list_screen",)
         else:
             messages.success(request, "Screen Registration Failed")
             return render(request, "screen_registration.html", {"form": form})
@@ -135,7 +135,9 @@ def edit_screen(request, id):
 def delete_screen(request, id):
         Screen.objects.get(id=id).delete()
         messages.success(request, "Screen deleted")
-        return redirect("screen_list",)
+        return redirect("screen_list")
+
+
 
 # ---------------------------------------------------MOVIE-------------------------------------------------------------------------------------------------
 @signin_required

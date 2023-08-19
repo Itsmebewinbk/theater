@@ -20,7 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-$z*h!57qyz(ty_wrje3ne-=%&w%-!wlo)0rhi93o9r87d6!9g3"
+SECRET_KEY = (
+    "django-insecure-$z*h!57qyz(ty_wrje3ne-=%&w%-!wlo)0rhi93o9r87d6!9g3"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,10 +41,53 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "Customer",
     "Theater",
-    "rest_framework",
     "Admin",
-   
+    "django_celery_beat",
+    "api",
+    "rest_framework_simplejwt",
+    "rest_framework",
+    "drf_yasg",
+    "social_django",
+    "allauth",
+    "allauth.socialaccount",
+    "star_ratings",
 ]
+# REST_FRAMEWORK = {
+# 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.',),
+# 'DEFAULT_AUTHENTICATION_CLASSES': (
+#     'rest_framework.authentication.TokenAuthentication',
+#     'rest_framework.authentication.SessionAuthentication'
+# )
+# }
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
+
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
+LOGIN_REDIRECT_URL = "home"
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Auth Token eg [Bearer (JWT) ]": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+        }
+    }
+}
+# SWAGGER_SETTINGS = {'SECURITY_DEFINITIONS': {
+
+
+#       'Bearer': {
+#             'type': 'apiKey',
+#             'name': 'Authorization',
+#             'Authorization': 'Bearer {JWT}',
+#             'in': 'header'
+#       }
+#    }}
 
 
 MIDDLEWARE = [
@@ -53,7 +98,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "297795917617-gf4gvnn9o4b6jgbph88dot10hbvn51ec.apps.googleusercontent.com"  # App ID
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+
+SOCIAL_AUTH_FACEBOOK_KEY = "701386675011416"  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = "f83ab920da990b9e721384af0cfcb978"  # App Secret
 
 ROOT_URLCONF = "THeaTRe_BooKiNG_aPP.urls"
 
@@ -68,6 +120,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -79,13 +133,22 @@ WSGI_APPLICATION = "THeaTRe_BooKiNG_aPP.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "mydb",
+        "USER": "postgres",
+        "PASSWORD": "12345",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -117,33 +180,114 @@ USE_I18N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
+
+AUTHENTICATION_BACKENDS = (
+    "social_core.backends.facebook.FacebookOAuth2",
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.twitter.TwitterOAuth",
+    "social_core.backends.github.GithubOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+# Logging
+
+FORMATTERS = (
+    {
+        "verbose": {
+            "format": "{levelname} {asctime:s} {threadName} {thread:d} {module} {filename} {lineno:d} {name} {funcName} {process:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {asctime:s} {module} {filename} {lineno:d} {funcName} {message}",
+            "style": "{",
+        },
+    },
+)
+
+
+HANDLERS = {
+    "console_handler": {
+        "class": "logging.StreamHandler",
+        "formatter": "simple",
+    },
+    "my_handler": {
+        "class": "logging.handlers.RotatingFileHandler",
+        "filename": "THeaTRe_BooKiNG_aPP/error.log",
+        "mode": "a",
+        "encoding": "utf-8",
+        "formatter": "simple",
+        "backupCount": 5,
+        "maxBytes": 1024 * 1024 * 5,  # 5 MB
+    },
+    "my_handler_detailed": {
+        "class": "logging.handlers.RotatingFileHandler",
+        "filename": "THeaTRe_BooKiNG_aPP/errordetail.log",
+        "mode": "a",
+        "formatter": "verbose",
+        "backupCount": 5,
+        "maxBytes": 1024 * 1024 * 5,  # 5 MB
+    },
+}
+
+LOGGERS = (
+    {
+        "django": {
+            "handlers": ["console_handler", "my_handler_detailed"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["my_handler"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+)
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": FORMATTERS[0],
+    "handlers": HANDLERS,
+    "loggers": LOGGERS[0],
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-AUTH_USER_MODEL = 'Admin.CustomUser'
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_PORT="587"
-EMAIL_USE_TLS=True
-EMAIL_HOST_USER="mindlesspeople1217@gmail.com"
-EMAIL_HOST_PASSWORD="yjzunxhvtxxhqxxw"
-EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+AUTH_USER_MODEL = "Admin.CustomUser"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "587"
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "mindlesspeople1217@gmail.com"
+EMAIL_HOST_PASSWORD = "yjzunxhvtxxhqxxw"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # CELERY SETTINGS
-CELERY_BROKER_URL = 'redis: //127.0.0.1:6379'
-CELERY_ACCEPT_CONTENT=['json']
-CELERY_RESULT_SERIALIZER='json'
-CELERY_TASK_SERIALIZER="json"
-CELERY_TIMEZONE="Asia/Kolkata"
-CELERY_RESULT_BACKEND='redis: //127.0.0.1:6379'
-CELERY_QUEUES= None
+CELERY_BROKER_URL = "redis://127.0.0.1:6379"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Kolkata"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379"
+CELERY_QUEUES = None
+# CELERY_BEAT_SCHEDULE={}
 
-
+# celery -A THeaTRe_BooKiNG_aPP beat  -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+# celery -A THeaTRe_BooKiNG_aPP worker -l info

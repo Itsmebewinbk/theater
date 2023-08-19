@@ -1,7 +1,8 @@
-from django.urls import path
+from django.urls import path,include
 from Admin import views
 urlpatterns=[
     path("",views.login_view,name="login"),
+    path('oauth/', include('social_django.urls', namespace='social')),
     path("logout",views.logout_view,name="logout"),
     path("customer_user_register",views.customer_user_registration,name="c_user_register"),
     path("theater_user_register",views.theater_user_registration,name="t_user_register"),

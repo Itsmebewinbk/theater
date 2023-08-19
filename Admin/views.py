@@ -6,12 +6,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from Admin.decorators import signin_required, theatre_login, customer_login, admin_login
 from Admin.models import *
+import logging
+
+Varname = logging.getLogger(__name__)
 
 
 @signin_required
 @theatre_login
 def index(request,):
     all_movie = Movie.objects.filter(screen__theater__owner=request.user)
+    Varname.warning('loading errors')
     return render(request, "index.html", {"movie": all_movie})
 
 
@@ -21,6 +25,7 @@ def login_view(request, *args, **kwargs):
     if request.method == "POST":
         form = LogInForm(request.POST)
         if form.is_valid():
+            
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(request, username=username, password=password)

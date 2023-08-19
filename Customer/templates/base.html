@@ -58,6 +58,22 @@
                         <li><a class="dropdown-item" href="#!">Food Court</a></li>
                     </ul>
                 </li>
+                
+    <!-- Navbar Search-->
+      <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="get" action="{% url 'search' %}">
+        <div class="input-group">
+        <input class="form-control" placeholder="Search for movies" type="text" id="movie_name"  aria-describedby="btnNavbarSearch" name="movie_name" value="{{ request.GET.movie_name }}">
+        <input class="btn btn-primary" type="submit" value="Search">
+    </div>
+      </form>
+
+    <!-- <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                   aria-describedby="btnNavbarSearch"/>
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        </div>
+    </form> -->
             </ul>
             <ul class="nav justify-content-center me-3">
                 <li class="nav-item">

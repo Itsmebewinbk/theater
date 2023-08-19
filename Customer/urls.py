@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from Customer import views
 urlpatterns=[
     path("home", views.home, name="home"),
@@ -14,6 +14,9 @@ urlpatterns=[
     path("delete/booking/<int:id>", views.cancellation,name="cancelled"),
     path("customer-detail/<int:id>", views.customer_details,name="customer_details"),
     path("customer-detail_edit/<int:id>", views.customer_edit,name="customer_details_edit"),
+    
+    path("movie/search",views.search_movie,name="search")
+
     # path("email/<int:id>", views.email,name="email")
 
 ]

@@ -52,9 +52,11 @@
                                     {{form.as_p}}
                                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                                 </form>
-
+                                
                             </div>
+                        <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Gmail</a>
                         </div>
+                        <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
                         <div>
                             <p class="mb-0"><a href="{%url 't_user_register' %}"
                                                                       class="text-white-50 fw-bold">Theater Sign Up
